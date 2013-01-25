@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextFieldDelegate, NSURLConnectionDelegate>
+
+@property (retain, nonatomic) IBOutlet UITextField *urlField;
+@property (retain, nonatomic) IBOutlet UITextView *responseView;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *juhuaView;
+
+@property (nonatomic, retain) NSMutableData *receivedData;
+
+- (IBAction)requestAction:(UIButton *)sender;
 
 @end
