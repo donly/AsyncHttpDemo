@@ -60,6 +60,11 @@
     NSError * error = nil;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    
+    if (error) {
+        string = [error localizedDescription];
+    }
+    
     [self performSelectorOnMainThread:@selector(updateUI:) withObject:string waitUntilDone:NO];
     [self.juhuaView stopAnimating];
 }
@@ -121,6 +126,10 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"error:%@", [error localizedDescription]);
+    
+    [self updateUI:[error localizedDescription]];
+    self.receivedData = [NSMutableData data];
+    [self.juhuaView stopAnimating];
 }
 
 
